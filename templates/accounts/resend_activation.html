@@ -1,0 +1,12 @@
+{% extends "accounts/base_account.html" %}
+{% block title %}Resend confirmation | {{ site.company_name }}{% endblock %}
+{% block account %}
+<div class="auth-card card">
+<h1>Resend confirmation email</h1>
+<form method="post" novalidate>
+{% csrf_token %}
+{% include "accounts/_form.html" with form=form %}
+<button class="btn" type="submit">Send link</button>
+</form>
+</div>
+{% endblock %}

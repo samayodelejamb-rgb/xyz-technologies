@@ -1,0 +1,4 @@
+# Production requirements (used by the Dockerfile and on your server)
+-r requirements.txt
+gunicorn>=22.0
+psycopg[binary]>=3.2

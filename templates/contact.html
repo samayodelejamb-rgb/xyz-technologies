@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "partials/page_header.html" with title="Contact us" intro="Tell us about your project. We reply within one working day." %}
+
+<section class="section">
+<div class="container two">
+<div class="card">
+<h2>Send us a message</h2>
+<form id="contact-form" data-url="{% url 'contact_send' %}" novalidate>
+{% csrf_token %}
+<div class="hp" aria-hidden="true"><label for="nickname">Leave this empty</label><input id="nickname" name="nickname" tabindex="-1" autocomplete="off"></div>
+<div><label for="name">Full name</label><input id="name" name="name" autocomplete="name" maxlength="100" required></div>
+<div><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" maxlength="150" required></div>
+<div><label for="phone">Phone (optional)</label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="30"></div>
+<div><label for="topic">Interested in</label>
+<select id="topic" name="topic">{% for t in topics %}<option>{{ t }}</option>{% endfor %}</select></div>
+<div><label for="message">Message</label><textarea id="message" name="message" rows="5" maxlength="3000" required></textarea></div>
+<p class="note">We use your details only to reply to your enquiry.</p>
+<button class="btn" type="submit">Send message</button>
+<div id="form-note" class="msg" role="status" aria-live="polite"></div>
+</form>
+</div>
+
+<div>
+<div class="card mb">
+<h3>Head office</h3>
+<p class="pre-line">{{ site.company_name }}
+{{ site.address }}</p>
+<h3 class="mt-m">Reach us</h3>
+<ul class="info-list">
+<li>Phone: <a href="tel:{{ site.phone|cut:' ' }}">{{ site.phone }}</a></li>
+<li>Email: <a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+</ul>
+<h3>Opening hours</h3>
+<p class="pre-line">{{ site.hours_weekdays }}{% if site.hours_saturday %}
+{{ site.hours_saturday }}{% endif %}</p>
+</div>
+{% if site.map_embed_url %}
+<iframe class="map" src="{{ site.map_embed_url }}" title="Map of our office in Abeokuta" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+{% else %}
+<div class="map-empty">📍 Abeokuta, Ogun State<br>Add a Google Maps embed link in the admin to show your map here.</div>
+{% endif %}
+</div>
+</div>
+</section>
+{% endblock %}

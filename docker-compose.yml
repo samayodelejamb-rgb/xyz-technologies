@@ -1,0 +1,35 @@
+# Local production-like stack: Django + gunicorn + PostgreSQL
+#   docker compose up --build
+#   docker compose exec web python manage.py createsuperuser
+#   docker compose exec web python manage.py seed_content
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: xyz
+      POSTGRES_USER: xyz
+      POSTGRES_PASSWORD: xyz-local-password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U xyz -d xyz"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  web:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://xyz:xyz-local-password@db:5432/xyz
+      ALLOWED_HOSTS: localhost,127.0.0.1
+      CSRF_TRUSTED_ORIGINS: http://localhost:8000
+      FORCE_HTTPS: "False"
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+
+volumes:
+  pgdata:

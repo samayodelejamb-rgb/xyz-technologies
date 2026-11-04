@@ -1,0 +1,16 @@
+{% extends "accounts/base_account.html" %}
+{% block title %}Log in | {{ site.company_name }}{% endblock %}
+{% block account %}
+<div class="auth-card card">
+<h1>Log in</h1>
+<p class="note">Access your client portal to send and track support requests.</p>
+<form method="post" novalidate>
+{% csrf_token %}
+{% include "accounts/_form.html" with form=form %}
+<input type="hidden" name="next" value="{{ next }}">
+<button class="btn" type="submit">Log in</button>
+</form>
+<p class="mt-m"><a href="{% url 'accounts:password_reset' %}">Forgot your password?</a></p>
+<p class="note">No account yet? <a href="{% url 'accounts:signup' %}">Sign up</a>. Did not get the confirmation email? <a href="{% url 'accounts:resend_activation' %}">Send it again</a>.</p>
+</div>
+{% endblock %}

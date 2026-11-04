@@ -1,0 +1,9 @@
+{% extends "accounts/base_account.html" %}
+{% block title %}Link not valid | {{ site.company_name }}{% endblock %}
+{% block account %}
+<div class="auth-card card">
+<h1>This link is not valid</h1>
+<p>The confirmation link is wrong or has expired.</p>
+<p class="mt-m"><a class="btn" href="{% url 'accounts:resend_activation' %}">Send a new link</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+<div class="container">
+<span class="eyebrow">{{ site.company_name }} · Abeokuta</span>
+<h1>{{ site.hero_title }}</h1>
+<p>{{ site.hero_text }}</p>
+<div class="btn-row">
+<a class="btn" href="{% url 'contact' %}">Request a free consultation</a>
+<a class="btn alt" href="{% url 'services' %}">Our services</a>
+</div>
+</div>
+</section>
+
+{% if stats %}
+<section class="stats">
+<div class="container">
+{% for s in stats %}<div class="stat"><b>{{ s.value }}</b><span>{{ s.label }}</span></div>
+{% endfor %}</div>
+</section>
+{% endif %}
+
+<section class="section">
+<div class="container">
+<div class="section-head">
+<h2>What we do</h2>
+<p>Practical technology services, from planning and installation to long-term support.</p>
+</div>
+<div class="grid">
+{% for s in services %}<div class="card lift"><div class="ic">{{ s.icon }}</div><h3>{{ s.title }}</h3><p>{{ s.summary }}</p></div>
+{% empty %}<p class="note">Services will appear here once added in the admin.</p>
+{% endfor %}</div>
+<p class="mt"><a href="{% url 'services' %}">See all services →</a></p>
+</div>
+</section>
+
+<section class="section alt">
+<div class="container">
+<div class="section-head"><h2>Why clients choose us</h2></div>
+<div class="grid">
+<div class="card"><h3>Local presence</h3><p>Based in Abeokuta, so on-site help is never far away.</p></div>
+<div class="card"><h3>Honest pricing</h3><p>Clear quotes with no hidden costs.</p></div>
+<div class="card"><h3>Lasting support</h3><p>We stay after launch with training and maintenance.</p></div>
+</div>
+</div>
+</section>
+
+{% if testimonials %}
+<section class="section">
+<div class="container">
+<div class="section-head"><h2>What clients say</h2></div>
+<div class="grid">
+{% for t in testimonials %}<div class="card quote"><p>“{{ t.quote }}”</p><small>{{ t.author }}{% if t.role %}, {{ t.role }}{% endif %}</small></div>
+{% endfor %}</div>
+</div>
+</section>
+{% endif %}
+
+{% include "partials/cta.html" %}
+{% endblock %}

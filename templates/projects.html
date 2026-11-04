@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "partials/page_header.html" with title="Projects and clients" intro="A look at the kinds of work we deliver across Abeokuta and Ogun State." %}
+
+<section class="section">
+<div class="container">
+<div class="grid">
+{% for p in projects %}<div class="card lift"><span class="tag">{{ p.sector }}</span><h3>{{ p.title }}</h3><p>{{ p.summary }}</p></div>
+{% empty %}<p class="note">Projects will appear here once added in the admin.</p>
+{% endfor %}</div>
+</div>
+</section>
+
+{% if testimonials %}
+<section class="section alt">
+<div class="container">
+<div class="section-head"><h2>What clients say</h2></div>
+<div class="grid">
+{% for t in testimonials %}<div class="card quote"><p>“{{ t.quote }}”</p><small>{{ t.author }}{% if t.role %}, {{ t.role }}{% endif %}</small></div>
+{% endfor %}</div>
+</div>
+</section>
+{% endif %}
+
+{% include "partials/cta.html" %}
+{% endblock %}

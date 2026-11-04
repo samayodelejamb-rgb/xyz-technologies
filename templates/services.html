@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "partials/page_header.html" with title="Our services" intro="End-to-end technology services, from planning and installation to training and long-term support." %}
+
+<section class="section">
+<div class="container">
+<div class="grid">
+{% for s in services %}<div class="card lift"><div class="ic">{{ s.icon }}</div><h3>{{ s.title }}</h3><p>{{ s.summary }}</p></div>
+{% empty %}<p class="note">Services will appear here once added in the admin.</p>
+{% endfor %}</div>
+</div>
+</section>
+
+<section class="section alt">
+<div class="container">
+<div class="section-head"><h2>How we work</h2></div>
+<div class="grid">
+<div class="card"><h3>1. Discover</h3><p>We study your needs.</p></div>
+<div class="card"><h3>2. Design</h3><p>We propose a clear plan and quote.</p></div>
+<div class="card"><h3>3. Deliver</h3><p>We build, install and test.</p></div>
+<div class="card"><h3>4. Support</h3><p>We train your team and stay on call.</p></div>
+</div>
+</div>
+</section>
+
+{% include "partials/cta.html" %}
+{% endblock %}

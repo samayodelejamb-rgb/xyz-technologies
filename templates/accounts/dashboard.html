@@ -1,0 +1,33 @@
+{% extends "accounts/base_account.html" %}
+{% block title %}My portal | {{ site.company_name }}{% endblock %}
+{% block account %}
+<div class="portal-head">
+<div>
+<h1>Welcome, {{ user.first_name|default:user.username }}</h1>
+<p class="lead">{{ open_count }} open request{{ open_count|pluralize }}.</p>
+</div>
+<div class="btn-row">
+<a class="btn" href="{% url 'accounts:ticket_new' %}">New support request</a>
+<a class="btn alt" href="{% url 'accounts:profile' %}">My details</a>
+</div>
+</div>
+
+{% if tickets %}
+<div class="table-wrap">
+<table>
+<thead><tr><th>Ref</th><th>Subject</th><th>Category</th><th>Status</th><th>Updated</th></tr></thead>
+<tbody>
+{% for t in tickets %}<tr>
+<td><a href="{{ t.get_absolute_url }}">{{ t.reference }}</a></td>
+<td><a href="{{ t.get_absolute_url }}">{{ t.subject }}</a></td>
+<td>{{ t.category }}</td>
+<td><span class="badge {{ t.status }}">{{ t.get_status_display }}</span></td>
+<td>{{ t.updated_at|date:"d M Y, H:i" }}</td>
+</tr>
+{% endfor %}</tbody>
+</table>
+</div>
+{% else %}
+<div class="card"><h3>No requests yet</h3><p>When you need help, send a support request and we will reply here and by email.</p></div>
+{% endif %}
+{% endblock %}

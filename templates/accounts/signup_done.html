@@ -1,0 +1,15 @@
+{% extends "accounts/base_account.html" %}
+{% block title %}Check your email | {{ site.company_name }}{% endblock %}
+{% block account %}
+<div class="auth-card card">
+{% if verify %}
+<h1>Check your email</h1>
+<p>We sent a confirmation link to your email address. Open it to activate your account, then log in.</p>
+<p class="note">Nothing arrived after a few minutes? Check your Spam folder or <a href="{% url 'accounts:resend_activation' %}">send the link again</a>.</p>
+{% else %}
+<h1>Account created</h1>
+<p>You can log in now.</p>
+{% endif %}
+<p class="mt-m"><a class="btn" href="{% url 'accounts:login' %}">Go to log in</a></p>
+</div>
+{% endblock %}

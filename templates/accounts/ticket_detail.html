@@ -1,0 +1,33 @@
+{% extends "accounts/base_account.html" %}
+{% block title %}{{ ticket.reference }} | {{ site.company_name }}{% endblock %}
+{% block account %}
+<p><a href="{% url 'accounts:dashboard' %}">← Back to my requests</a></p>
+<div class="portal-head">
+<div>
+<h1>{{ ticket.subject }}</h1>
+<p class="lead">{{ ticket.reference }} · {{ ticket.category }} · opened {{ ticket.created_at|date:"d M Y" }}</p>
+</div>
+<span class="badge {{ ticket.status }}">{{ ticket.get_status_display }}</span>
+</div>
+
+<div class="thread">
+<div class="bubble mine"><small>You · {{ ticket.created_at|date:"d M Y, H:i" }}</small><p class="pre-line">{{ ticket.message }}</p></div>
+{% for r in replies %}<div class="bubble {% if r.is_staff_reply %}staff{% else %}mine{% endif %}">
+<small>{% if r.is_staff_reply %}XYZ Support{% else %}You{% endif %} · {{ r.created_at|date:"d M Y, H:i" }}</small>
+<p class="pre-line">{{ r.message }}</p>
+</div>
+{% endfor %}
+</div>
+
+{% if ticket.is_closed %}
+<p class="note">This request is closed. <a href="{% url 'accounts:ticket_new' %}">Open a new request</a> if you need more help.</p>
+{% else %}
+<div class="card auth-card wide">
+<form method="post" novalidate>
+{% csrf_token %}
+{% include "accounts/_form.html" with form=form %}
+<button class="btn" type="submit">Send reply</button>
+</form>
+</div>
+{% endif %}
+{% endblock %}

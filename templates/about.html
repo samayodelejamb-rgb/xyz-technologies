@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "partials/page_header.html" with title="About us" intro=site.about_intro %}
+
+<section class="section">
+<div class="container two">
+<div class="card"><h3>Our mission</h3><p>{{ site.mission }}</p></div>
+<div class="card"><h3>Our vision</h3><p>{{ site.vision }}</p></div>
+</div>
+</section>
+
+{% if values %}
+<section class="section alt">
+<div class="container">
+<div class="section-head"><h2>Core values</h2></div>
+<div class="grid">
+{% for v in values %}<div class="card"><h3>{{ v.title }}</h3><p>{{ v.text }}</p></div>
+{% endfor %}</div>
+</div>
+</section>
+{% endif %}
+
+{% if milestones %}
+<section class="section">
+<div class="container">
+<div class="section-head"><h2>Our journey</h2></div>
+<ol class="timeline">
+{% for m in milestones %}<li><b>{% if m.year %}{{ m.year }}: {% endif %}{{ m.title }}</b><br>{{ m.text }}</li>
+{% endfor %}</ol>
+</div>
+</section>
+{% endif %}
+
+{% if team %}
+<section class="section alt">
+<div class="container">
+<div class="section-head"><h2>Leadership</h2></div>
+<div class="grid">
+{% for p in team %}<div class="card"><div class="avatar">{{ p.name|first }}</div><h3>{{ p.name }}</h3><p><b>{{ p.role }}</b></p>{% if p.bio %}<p class="mt-s">{{ p.bio }}</p>{% endif %}</div>
+{% endfor %}</div>
+</div>
+</section>
+{% endif %}
+
+{% include "partials/cta.html" %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "partials/page_header.html" with title="Our products" intro="Ready-to-use software from XYZ Technologies, plus trusted hardware we supply and install." %}
+
+<section class="section">
+<div class="container">
+<div class="section-head"><h2>Software products</h2></div>
+<div class="grid">
+{% for p in software %}<div class="card lift"><span class="tag">Software</span><h3>{{ p.name }}</h3><p>{{ p.summary }}</p></div>
+{% empty %}<p class="note">Products will appear here once added in the admin.</p>
+{% endfor %}</div>
+</div>
+</section>
+
+<section class="section alt">
+<div class="container">
+<div class="section-head"><h2>Hardware we supply</h2></div>
+{% if hardware %}
+<div class="table-wrap">
+<table>
+<thead><tr><th>Product</th><th>Description</th><th>Includes</th></tr></thead>
+<tbody>
+{% for h in hardware %}<tr><td>{{ h.name }}</td><td>{{ h.summary }}</td><td>{{ h.includes }}</td></tr>
+{% endfor %}</tbody>
+</table>
+</div>
+{% else %}<p class="note">Hardware will appear here once added in the admin.</p>{% endif %}
+<p class="note mt-m">Contact us for current availability and quotations.</p>
+</div>
+</section>
+
+{% include "partials/cta.html" %}
+{% endblock %}

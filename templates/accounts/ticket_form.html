@@ -1,0 +1,12 @@
+{% extends "accounts/base_account.html" %}
+{% block title %}New request | {{ site.company_name }}{% endblock %}
+{% block account %}
+<div class="auth-card card wide">
+<h1>New support request</h1>
+<form method="post" novalidate>
+{% csrf_token %}
+{% include "accounts/_form.html" with form=form %}
+<div class="btn-row"><button class="btn" type="submit">Send request</button><a class="btn alt" href="{% url 'accounts:dashboard' %}">Cancel</a></div>
+</form>
+</div>
+{% endblock %}

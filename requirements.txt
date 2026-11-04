@@ -1,0 +1,5 @@
+# Development + base requirements (works on Windows, Mac and Linux)
+Django>=5.2
+python-dotenv>=1.0
+dj-database-url>=2.2
+whitenoise>=6.7
